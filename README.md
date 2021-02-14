@@ -2,7 +2,7 @@
 
 A Flutter Simple PinPad Widget.
 
-![Alt Text](https://github.com/empire-tm/Simple_PinPad/blob/master/demo.gif)
+![Alt Text](https://raw.githubusercontent.com/empire-tm/Simple_PinPad/master/blob/demo.gif)
 
 ## Example Usage
 
