@@ -1,16 +1,78 @@
-# simple_pinpad
+# Simple PinPad
 
-A new Flutter project.
+A Flutter Simple PinPad Widget.
 
-## Getting Started
+![Alt Text](https://github.com/empire-tm/Simple_PinPad/blob/master/demo.gif)
 
-This project is a starting point for a Flutter application.
+## Example Usage
 
-A few resources to get you started if this is your first Flutter project:
+````
+import 'package:flutter/material.dart';
+import 'package:simple_pinpad/widgets/simple_pinpad.dart';
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+import 'components/numpad_button.dart';
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SimplePinPad Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyHomePage(title: 'SimplePinPad Demo'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  final String title;
+
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+            child: SingleChildScrollView(
+                child: Column(
+          children: [
+            Text("Enter pin code:"),
+            SimplePinPad(
+              onChanged: (BuildContext context, String value) {
+                debugPrint("onChanged: " + value);
+              },
+              onCompleted: (BuildContext context, String value) {
+                debugPrint("onCompleted: " + value);
+
+                SnackBar snackBar =
+                    SnackBar(content: Text("You pin code: " + value));
+                Scaffold.of(context).showSnackBar(snackBar);
+              },
+              additionalButton1: NumPadButton(
+                  icon: Icons.fingerprint,
+                  onPressed: (BuildContext context) async {
+                    SnackBar snackBar = SnackBar(content: Text("Touch ID"));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }),
+            )
+          ],
+        ))));
+  }
+}
+
+````
